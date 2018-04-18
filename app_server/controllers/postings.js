@@ -22,29 +22,22 @@ module.exports.postList = function(req, res) {
 
 /* GET 'Course info' page */
 module.exports.postInfo = function(req, res) {
-    res.render('course-info', {
-        title: 'CSCI-446',
+    res.render('post-info', {
+        title: 'Post title',
         pageHeader: {
-            title: 'Web Applications'
+            title: 'Page Header'
         },
-        course: {
+        post: {
             name: 'Web Applications',
-            courseid: 'CSCI-446',
-            time: 'Online Course - No Scheduled Lecture',
-            teachers: ['Cyndi Rader', 'Ahmed Alshrehri'],
+            date: 'March 7, 2018',
+            id: 'CSCI-446',
+            status: 'Looking for Help',
+            user: 'crader',
 
-            assignments: [{
+            comments: [{
                 name: 'Unit 8',
-                st: 'Finished',
-				points: 10,
                 date: 'March 7, 2018',
                 description: 'Course/Assignment Organizer Application'
-            }, {
-                name: 'Unit 9',
-                st: 'In Progress',
-				points: 10,
-                date: 'March 14, 2018',
-                description: 'Database Amendment (MongoDB)'
             }]
         }
     });
@@ -52,10 +45,10 @@ module.exports.postInfo = function(req, res) {
 
 /* GET 'Add Assignment' page */
 module.exports.addPost = function(req, res) {
-    res.render('course-assignment-form', {
-        title: 'Add Assignment',
+    res.render('post-create-form', {
+        title: 'Add Post',
         pageHeader: {
-            title: 'Add Assignment'
+            title: 'Add Post'
         }
     });
 };

@@ -1,0 +1,36 @@
+extends layout
+
+block content
+  .row.page-header: .col-lg-12
+      h1= pageHeader.title
+  .row
+    .col-xs-12.col-md-9
+      .row
+        .col-xs-12.col-sm-6
+          p= post.id
+          .panel.panel-primary
+            .panel-heading
+              h2.panel-title Date Posted
+            .panel-body
+                p= post.date
+
+          .panel.panel-primary
+            .panel-heading
+              h2.panel-title User
+            .panel-body
+                p= post.user
+
+        .col-xs-12
+          .panel.panel-primary.review-panel
+            .panel-heading
+              a.btn.btn-default.pull-right(href="/postings/") Add Comment
+              h2.panel-title Comments
+            .panel-body.review-container
+              each comment in post.comments
+                .row
+                  .review
+                    .well.well-sm.review-header
+                      span.reviewAuthor #{comment.name}
+                      span.reviewDate.pull-right #{comment.date}
+                    .col-xs-12
+                      p !{(comment.description).replace(/\n/g, '<br/>')}
