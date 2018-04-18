@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
+var ctrlPostings = require('../controllers/postings');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+/* GET postings pages. */
+router.get('/', ctrlPostings.postList);
+router.get('/postings/', ctrlPostings.postInfo);
+router.get('/postings/new', ctrlPostings.addPost);
 
 module.exports = router;
