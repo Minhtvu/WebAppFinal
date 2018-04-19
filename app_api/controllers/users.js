@@ -1,0 +1,1 @@
+module.exports.userById = function (req, res) {};
