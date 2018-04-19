@@ -1,0 +1,6 @@
+Create mongodump (first time only): mkdir -p ~/tmp/mongodump
+
+Push from local data base to mongodump: sudo mongodump -h localhost:27017 -d MinesBartering -o ~/tmp/mongodump
+
+Push from mongodump to mongolab: mongorestore -h ds249299.mlab.com:49299 -d webappfinal -u minhtvu -p Kutelove1 ~/tmp/mongodump/MinesBartering
+

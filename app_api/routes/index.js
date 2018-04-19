@@ -9,8 +9,8 @@ router.get('/users/:userid', ctrlUsers.userById);
 
 // Postings
 router.get('/', ctrlPostings.postingList);
-router.get('/postings/:postingid', ctrlPosting.postingById);
-router.post('/postings/:postingid', ctrlPosting.addComment);
+router.get('/postings/:postingid', ctrlPostings.postingById);
+router.post('/postings/:postingid', ctrlPostings.addComment);
 router.post('/users/:userid/new', ctrlPostings.createPost);
 
 /*
