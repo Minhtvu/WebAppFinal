@@ -1,6 +1,5 @@
-var mongoose = require ('mongoose');
-var user = require('./../models/users.js');
-mongoose.model('User');
+var mongoose = require ('mongoose').set('debug', true);
+var User = mongoose.model('User');
 var posting = mongoose.model('Posting');
 
 // Response function
@@ -10,12 +9,13 @@ var sendJsonResponse = function (res, status, content) {
 };
 
 module.exports.postingList = function (req, res) {
-  user
+  User
     .find()
+    .select('postings')
     .exec(function(err, users) {
       if (!users) {
         sendJsonResponse(res, 404, {
-          "message": "courseid not found"
+          "message": "no users"
         });
         return;
       } else if (err) {

@@ -1,3 +1,13 @@
+var mongoose = require ('mongoose').set('debug', true);
+var User = mongoose.model('User');
+
+
+// Response function
+var sendJsonResponse = function (res, status, content) {
+   res.status(status);
+   res.json(content);
+};
+
 module.exports.userById = function (req, res) {
   if (req.params && req.params.userid) {
     User
@@ -16,7 +26,7 @@ module.exports.userById = function (req, res) {
       });
   } else {
     sendJsonResponse(res, 404, {
-      "message": "No courseid in request"
+      "message": "No userid in request"
     });
   }
 };
