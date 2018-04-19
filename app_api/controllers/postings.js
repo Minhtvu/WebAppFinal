@@ -68,7 +68,7 @@ module.exports.postingById = function (req, res) {
     );
 };
 
-var doAddComment = function(req, res, posting) {
+var doAddComment = function(req, res, posting, user) {
   if (!posting) {
     sendJsonResponse(res, 404, {
       "message": "Posting not found"
@@ -83,8 +83,9 @@ var doAddComment = function(req, res, posting) {
       if (err) {
         sendJsonResponse(res, 400, err);
       } else {
+        user.save(function(err,user){});
         thisComment = posting.comments[posting.comments.length - 1];
-        sendJsonResponse(res, 201, thisComment);
+        sendJsonResponse(res, 201, posting);
       }
     });
   }
@@ -120,7 +121,7 @@ module.exports.addComment = function (req, res) {
               if (err) {
                 sendJsonResponse(res, 404, err);
               } else {
-                doAddComment(req, res, user.postings.id(req.params.postingid));
+                doAddComment(req, res, user.postings.id(req.params.postingid), user);
               }
           }
         } else {
