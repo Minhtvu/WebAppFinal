@@ -1,6 +1,7 @@
 var mongoose = require ('mongoose');
-var User = mongoose.model('User');
-var Posting = mongoose.model('Posting');
+var user = require('./../models/users.js');
+mongoose.model('User');
+var posting = mongoose.model('Posting');
 
 // Response function
 var sendJsonResponse = function (res, status, content) {
@@ -9,7 +10,7 @@ var sendJsonResponse = function (res, status, content) {
 };
 
 module.exports.postingList = function (req, res) {
-  User
+  user
     .find()
     .exec(function(err, users) {
       if (!users) {
