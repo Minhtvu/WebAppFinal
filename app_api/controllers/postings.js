@@ -1,3 +1,13 @@
+var mongoose = require ('mongoose');
+var User = mongoose.model('User');
+var Posting = mongoose.model('Posting');
+
+// Response function
+var sendJsonResponse = function (res, status, content) {
+   res.status(status);
+   res.json(content);
+};
+
 module.exports.postingList = function (req, res) {};
 
 module.exports.postingById = function (req, res) {};

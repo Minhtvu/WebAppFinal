@@ -1,1 +1,45 @@
-userss
+db.users.save({
+	"username" : "Minh",
+	"password" : "123456",
+	"postings" : [
+		{
+			"title" : "Web designing",
+			"_id" : ObjectId(),
+			"description" : "Make good website",
+			"deadline" : "04/25/2018",
+			"userOffering" : "Jack - Cupcake",
+			"comments" : [
+				{
+					"username" : "Cliff",
+					"comment" : "Trustable service!!!",
+					"_id" : ObjectId()
+				},
+				{
+					"username" : "Corbin",
+					"comment" : "Good service!!!",
+					"_id" : ObjectId()
+				}
+			]
+		},
+		{
+			"title" : "Game designing",
+			"_id" : ObjectId(),
+			"description" : "Make good game",
+			"deadline" : "04/25/2018",
+			"userOffering" : "Jack - Cupcake",
+			"comments" : [
+				{
+					"username" : "Cliff",
+					"comment" : "Trustable service!!!",
+					"_id" : ObjectId()
+				},
+				{
+					"username" : "Corbin",
+					"comment" : "Good service!!!",
+					"_id" : ObjectId()
+				}
+			]
+		}
+	]
+})
+
