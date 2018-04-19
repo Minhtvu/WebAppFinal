@@ -120,7 +120,7 @@ module.exports.addComment = function (req, res) {
               if (err) {
                 sendJsonResponse(res, 404, err);
               } else {
-                doAddComment(res, 200, user.postings.id(req.params.postingid));
+                doAddComment(req, res, user.postings.id(req.params.postingid));
               }
           }
         } else {
