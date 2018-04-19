@@ -4,7 +4,6 @@ var ctrlUsers = require('../controllers/users');
 var ctrlPostings = require('../controllers/postings');
 
 // Users
-// router.get('/courses', ctrlUsers.coursesList);
 router.get('/users/:userid', ctrlUsers.userById);
 
 
