@@ -68,7 +68,69 @@ module.exports.postingById = function (req, res) {
     );
 };
 
-module.exports.addComment = function (req, res) {};
+var doAddComment = function(req, res, posting) {
+  if (!posting) {
+    sendJsonResponse(res, 404, {
+      "message": "Posting not found"
+    });
+  } else {
+    posting.comments.push({
+      username: req.body.username,
+	  comment: req.body.comment
+    });
+    posting.save(function(err, posting) {
+      var thisComment;
+      if (err) {
+        sendJsonResponse(res, 400, err);
+      } else {
+        thisComment = posting.comments[posting.comments.length - 1];
+        sendJsonResponse(res, 201, thisComment);
+      }
+    });
+  }
+};
+
+module.exports.addComment = function (req, res) {
+	if (!req.params.userid || !req.params.postingid) {
+    sendJsonResponse(res, 404, {
+      "message": "Not found, courseid and assignmentid are both required"
+    });
+    return;
+  }
+  User
+    .findById(req.params.userid)
+    .select('postings')
+    .exec(
+      function(err, user) {
+        if (!user) {
+          sendJsonResponse(res, 404, {
+            "message": "courseid not found"
+          });
+          return;
+        } else if (err) {
+          sendJsonResponse(res, 400, err);
+          return;
+        }
+        if (user.postings && user.postings.length > 0) {
+          if (!user.postings.id(req.params.postingid)) {
+            sendJsonResponse(res, 404, {
+              "message": "assignmentid not found"
+            });
+          } else {
+              if (err) {
+                sendJsonResponse(res, 404, err);
+              } else {
+                doAddComment(res, 200, user.postings.id(req.params.postingid));
+              }
+          }
+        } else {
+          sendJsonResponse(res, 404, {
+            "message": "No review to delete"
+          });
+        }
+      }
+    );
+};
 
 var doCreatePost = function(req, res, user) {
   if (!user) {
