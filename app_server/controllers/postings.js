@@ -45,27 +45,44 @@ module.exports.userById = function(req, res) {
     });
 };
 
+var renderHomepage = function(req, res, responseBody){
+   var message;
+   if (!(responseBody instanceof Array)) {
+      message = "API lookup error";
+      responseBody = [];
+   } else {
+      if (!responseBody.length) {
+         message = "No users found";
+      }
+   }
+   res.render('post-list', { 
+    title: 'All the postings',
+    pageHeader: {
+      title: 'Mines Bartering',
+      strapline: 'Help Mines student trade services and items'
+    },
+    description: {
+      info: 'Mines Bartering system allows students to trade services and items.'
+    },
+    users: responseBody,
+    message:message
+  });
+};
+
 /* GET posting list page */
 module.exports.postingList = function(req, res) {
-    res.render('post-info', {
-        title: 'Post title',
-        pageHeader: {
-            title: 'Page Header'
-        },
-        post: {
-            name: 'Web Applications',
-            date: 'March 7, 2018',
-            id: 'CSCI-446',
-            status: 'Looking for Help',
-            user: 'crader',
-
-            comments: [{
-                name: 'Unit 8',
-                date: 'March 7, 2018',
-                description: 'Course/Assignment Organizer Application'
-            }]
-        }
-    });
+   var requestOptions, path;
+   path = '/api/';
+   requestOptions = {
+      url : apiOptions.server + path,
+      method : "GET",
+      json : {},
+      qs : {}
+   };
+   request(requestOptions, function(err, response, body) {
+      renderHomepage(req, res, body);
+      }
+   );
 };
 
 /* GET postings by user page */

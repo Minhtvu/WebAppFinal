@@ -11,7 +11,6 @@ var sendJsonResponse = function (res, status, content) {
 module.exports.postingList = function (req, res) {
   User
     .find()
-    .select('postings')
     .exec(function(err, users) {
       if (!users) {
         sendJsonResponse(res, 404, {
