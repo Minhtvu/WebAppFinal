@@ -115,13 +115,59 @@ module.exports.addComment = function(req, res) {
         }
     });
 }
+var renderPostingForm = function (req, res) {
+   res.render('post-create-form', {
+    title: 'Add posting',
+    pageHeader: {
+      title: 'Add posting for '
+    },
+    field: {
+      title: 'Title',
+      description: 'Description',
+      deadline: 'Deadline',
+      userOffering: 'userOffering',
+    },
+    button: {
+      title: 'Create'
+    },
+    error: req.query.err
+  });
+};
 
-/* POST posting */
+
+/* GET Add Posting */
 module.exports.createPost = function(req, res) {
-	res.render('post-create-form', {
-        title: 'Add Post',
-        pageHeader: {
-            title: 'Add Post'
-        }
-    });	
+	renderPostingForm(req, res);	
 }
+
+/* POST Add Posting */
+module.exports.doCreatepost = function(req, res){
+   var requestOptions, path, courseid, postdata;
+   courseid = req.params.courseid;
+   path = "/api/courses/" + courseid + '/assignments';
+   postdata = {
+      name: req.body.name,
+      points: parseInt(req.body.points, 10),
+      status: req.body.status,
+      due: req.body.due
+   };
+   if(!postdata.name || !postdata.due || !postdata.points){
+      res.redirect('/course/' + courseid + '/assignments/new?err=req');
+   } else if (postdata.points > 100 || postdata.points < 0){
+      res.redirect('/course/' + courseid + '/assignments/new?err=points')
+   } else if (res.statusCode === 400){
+      res.redirect('/course/' + courseid + 'assignments/new?err=bad');
+   }
+   requestOptions = {
+     url : apiOptions.server + path,
+     method : "POST",
+     json : postdata
+   };
+   request(requestOptions, function(err, response, body) {
+     if (response.statusCode === 201) {
+        res.redirect('/course/' + courseid);
+      } else {
+        _showError(req, res, response.statusCode);
+      } 
+   });
+};
