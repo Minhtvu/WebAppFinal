@@ -108,12 +108,28 @@ module.exports.postingById = function(req, res) {
 
 /* POST comment */
 module.exports.addComment = function(req, res) {
-	res.render('post-create-form', {
-        title: 'Add Post',
-        pageHeader: {
-            title: 'Add Post'
-        }
-    });
+	var requestOptions, path, userid, postingid, postdata;
+	userid = req.params.userid;
+	postingid = req.params.postingid;
+	path = '/api/users/' + userid + '/postings/' + postingid;
+	postdata = {
+		username: req.body.username,
+		comment: req.body.comment
+	};
+	// Insert validation here if necessary
+	requestOptions = {
+		url : apiOptions.server + path,
+		method : "POST",
+		json : postdata
+	};
+	request(requestOptions, function(err, response, body) {
+		if (response.statusCode === 201) {
+			res.redirect('/user/' + userid + '/postings/' + postingid);
+		} 
+		else {
+			_showError(req, res, response.statusCode);
+		}
+	});
 }
 
 /* POST posting */
