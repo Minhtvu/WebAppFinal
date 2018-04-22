@@ -69,12 +69,23 @@ module.exports.postingList = function(req, res) {
 
 /* GET postings by user page */
 module.exports.postingById = function(req, res) {
-    res.render('post-create-form', {
-        title: 'Add Post',
-        pageHeader: {
-            title: 'Add Post'
-        }
-    });
+    var requestOptions, path;
+	path = '/api/users/' + req.params.userid + '/postings/' + req.params.postingid;
+	requestOptions = {
+		url : apiOptions.server + path,
+		method : "GET",
+		json : {}
+	};
+	request(requestOptions, function (err, response, body) {
+		if(response.statusCode == 200) {
+			res.render('post-info', {
+				posting: body
+			});
+		}
+		else {
+			_showError(req, res, reponse.statusCode);
+		}
+	);
 };
 
 /* POST comment */
