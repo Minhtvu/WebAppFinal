@@ -14,9 +14,11 @@ app.use(session({secret: 'supernova', savedUninitialized: true, resave:true}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-/* GET postings pages. */
-router.get('/', ctrlPostings.postList);
-router.get('/postings/', ctrlPostings.postInfo);
-router.get('/postings/new', ctrlPostings.addPost);
+// Postings
+router.get('/user/:userid', ctrlPostings.userById);
+router.get('/', ctrlPostings.postingList);
+router.get('/user/:userid/postings/:postingid', ctrlPostings.postingById);
+router.post('/user/:userid/postings/:postingid', ctrlPostings.addComment);
+router.post('/user/:userid/new', ctrlPostings.createPost);
 
-module.exports = router;
+module.exports = router;	
