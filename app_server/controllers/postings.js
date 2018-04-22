@@ -41,7 +41,7 @@ module.exports.userById = function(req, res) {
 		else {
 			_showError(req, res, reponse.statusCode);
 		}
-	);
+	});
 };
 
 var renderHomepage = function(req, res, responseBody){
@@ -102,7 +102,7 @@ module.exports.postingById = function(req, res) {
 		else {
 			_showError(req, res, reponse.statusCode);
 		}
-	);
+	});
 };
 
 /* POST comment */
