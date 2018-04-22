@@ -25,24 +25,23 @@ var _showError = function (req, res, status) {
 
 /* GET user page */
 module.exports.userById = function(req, res) {
-    res.render('post-list', {
-        title: 'My Courses',
-        pageHeader: {
-            title: 'Home Page',
-            strapline: 'All Available Posts'
-        },
-        sidebar: "CSCI-446: WEB APPLICATIONS - UNIT 13",
-
-        postings: [{
-            name: 'Web Applications',
-            user: 'crader',
-            id: '446'
-        }, {
-            name: 'Principles',
-            user: 'jrosenthal',
-            id: '001'
-        }]
-    });
+    var requestOptions, path;
+	path = '/api/users/' + req.params.userid;
+	requestOptions = {
+		url : apiOptions.server + path,
+		method : "GET",
+		json : {}
+	};
+	request(requestOptions, function (err, response, body) {
+		if(response.statusCode == 200) {
+			res.render('user-info', {
+				user: body
+			});
+		}
+		else {
+			_showError(req, res, reponse.statusCode);
+		}
+	);
 };
 
 /* GET posting list page */
