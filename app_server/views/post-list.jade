@@ -1,20 +1,21 @@
 extends layout
 
 block content
-  #banner.page-header
-    .row
-      .col-lg-6
-        h1= pageHeader.title
-         small &nbsp;#{pageHeader.strapline}
+  #banner.page-header                                          
+    .row                                                       
+      .col-lg-6                                                
+        h1= pageHeader.title                                              
+          small &nbsp;#{pageHeader.strapline}
   .row
-    .col-xs-12.col-sm-8
+    .col-xs-12.col-sm-8   
+      .error= message                
       .row.list-group
-        each post in postings
-          .col-xs-12.list-group-item
-            h4
-              a(href="/postings")= post.name
-              span.badge.pull-right.badge-default= post.id
-            p.user= post.user
-                &nbsp;
-    .col-xs-12.col-sm-4
-      p.lead= sidebar
+        each user in users
+          each posting in user.postings
+            .col-xs-12.list-group-item                         
+              h3                                              
+                a(href="/user/" + user._id + "/postings/" + posting._id)= posting._id
+              h4 
+                p.name= user.name                                                                    
+    .col-xs-12.col-sm-4                       
+      p.lead= description.info

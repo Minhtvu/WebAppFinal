@@ -9,10 +9,13 @@ var postingSchema = new mongoose.Schema({
   description: {type: String, required: true},
   deadline: {type: String},
   userOffering: {type: String},
-  comments: [commentSchema]
+  comments: [commentSchema],
 });
 
 var userSchema = new mongoose.Schema({
+  name: {type: String, required: true},
+  email: {type: String, required: true},
+  phone: {type: String, required: true},
   username: {type: String, required: true},
   password: {type: String, required: true},
   postings: [postingSchema]

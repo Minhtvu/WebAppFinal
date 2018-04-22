@@ -25,75 +25,159 @@ var _showError = function (req, res, status) {
 
 /* GET user page */
 module.exports.userById = function(req, res) {
-    res.render('post-list', {
-        title: 'My Courses',
-        pageHeader: {
-            title: 'Home Page',
-            strapline: 'All Available Posts'
-        },
-        sidebar: "CSCI-446: WEB APPLICATIONS - UNIT 13",
+    var requestOptions, path;
+	path = '/api/users/' + req.params.userid;
+	requestOptions = {
+		url : apiOptions.server + path,
+		method : "GET",
+		json : {}
+	};
+	request(requestOptions, function (err, response, body) {
+		if(response.statusCode == 200) {
+			res.render('user-info', {
+				user: body
+			});
+		}
+		else {
+			_showError(req, res, reponse.statusCode);
+		}
+	});
+};
 
-        postings: [{
-            name: 'Web Applications',
-            user: 'crader',
-            id: '446'
-        }, {
-            name: 'Principles',
-            user: 'jrosenthal',
-            id: '001'
-        }]
-    });
+var renderHomepage = function(req, res, responseBody){
+   var message;
+   if (!(responseBody instanceof Array)) {
+      message = "API lookup error";
+      responseBody = [];
+   } else {
+      if (!responseBody.length) {
+         message = "No users found";
+      }
+   }
+   res.render('post-list', { 
+    title: 'All the postings',
+    pageHeader: {
+      title: 'Mines Bartering',
+      strapline: 'Help Mines student trade services and items'
+    },
+    description: {
+      info: 'Mines Bartering system allows students to trade services and items.'
+    },
+    users: responseBody,
+    message:message
+  });
 };
 
 /* GET posting list page */
 module.exports.postingList = function(req, res) {
-    res.render('post-info', {
-        title: 'Post title',
-        pageHeader: {
-            title: 'Page Header'
-        },
-        post: {
-            name: 'Web Applications',
-            date: 'March 7, 2018',
-            id: 'CSCI-446',
-            status: 'Looking for Help',
-            user: 'crader',
-
-            comments: [{
-                name: 'Unit 8',
-                date: 'March 7, 2018',
-                description: 'Course/Assignment Organizer Application'
-            }]
-        }
-    });
+   var requestOptions, path;
+   path = '/api/';
+   requestOptions = {
+      url : apiOptions.server + path,
+      method : "GET",
+      json : {},
+      qs : {}
+   };
+   request(requestOptions, function(err, response, body) {
+      renderHomepage(req, res, body);
+      }
+   );
 };
 
 /* GET postings by user page */
 module.exports.postingById = function(req, res) {
-    res.render('post-create-form', {
-        title: 'Add Post',
-        pageHeader: {
-            title: 'Add Post'
-        }
-    });
+    var requestOptions, path;
+	path = '/api/users/' + req.params.userid + '/postings/' + req.params.postingid;
+	requestOptions = {
+		url : apiOptions.server + path,
+		method : "GET",
+		json : {}
+	};
+	request(requestOptions, function (err, response, body) {
+		if(response.statusCode == 200) {
+			res.render('post-info', {
+				posting: body,
+                                user: req.params.userid
+			});
+		}
+		else {
+			_showError(req, res, reponse.statusCode);
+		}
+	});
 };
 
 /* POST comment */
 module.exports.addComment = function(req, res) {
-	res.render('post-create-form', {
-        title: 'Add Post',
-        pageHeader: {
-            title: 'Add Post'
-        }
-    });
+	var requestOptions, path, userid, postingid, postdata;
+	userid = req.params.userid;
+	postingid = req.params.postingid;
+	path = '/api/users/' + userid + '/postings/' + postingid;
+	postdata = {
+		username: req.body.username,
+		comment: req.body.comment
+	};
+	// Insert validation here if necessary
+	requestOptions = {
+		url : apiOptions.server + path,
+		method : "POST",
+		json : postdata
+	};
+	request(requestOptions, function(err, response, body) {
+		if (response.statusCode === 201) {
+			res.redirect('/user/' + userid + '/postings/' + postingid);
+		} 
+		else {
+			_showError(req, res, response.statusCode);
+		}
+	});
+}
+var renderPostingForm = function (req, res) {
+   res.render('post-create-form', {
+    title: 'Add posting',
+    pageHeader: {
+      title: 'Add posting for '
+    },
+    field: {
+      title: 'Title',
+      description: 'Description',
+      deadline: 'Deadline',
+      userOffering: 'userOffering',
+    },
+    button: {
+      title: 'Create'
+    },
+    error: req.query.err
+  });
+};
+
+
+/* GET Add Posting */
+module.exports.createPost = function(req, res) {
+	renderPostingForm(req, res);	
 }
 
-/* POST posting */
-module.exports.createPost = function(req, res) {
-	res.render('post-create-form', {
-        title: 'Add Post',
-        pageHeader: {
-            title: 'Add Post'
-        }
-    });	
-}
+/* POST Add Posting */
+module.exports.doCreatepost = function(req, res){
+   var requestOptions, path, userid, postdata;
+   userid = req.params.userid;
+   path = "/api/users/" + userid + '/new';
+   postdata = {
+      title: req.body.title,
+	  description: req.body.description,
+	  deadline: req.body.deadline,
+	  userOffering: req.body.userOffering
+   };
+   // Insert authenitication here
+   requestOptions = {
+     url : apiOptions.server + path,
+     method : "POST",
+     json : postdata
+   };
+   request(requestOptions, function(err, response, body) {
+     if (response.statusCode === 201) {
+        res.redirect('/user/' + userid + '/new');
+      } else {
+        _showError(req, res, response.statusCode);
+      } 
+   });
+};
