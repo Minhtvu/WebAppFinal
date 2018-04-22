@@ -23,8 +23,8 @@ var _showError = function (req, res, status) {
   });
 };
 
-/* GET 'home' page */
-module.exports.postList = function(req, res) {
+/* GET user page */
+module.exports.userById = function(req, res) {
     res.render('post-list', {
         title: 'My Courses',
         pageHeader: {
@@ -45,8 +45,8 @@ module.exports.postList = function(req, res) {
     });
 };
 
-/* GET 'Course info' page */
-module.exports.postInfo = function(req, res) {
+/* GET posting list page */
+module.exports.postingList = function(req, res) {
     res.render('post-info', {
         title: 'Post title',
         pageHeader: {
@@ -68,8 +68,8 @@ module.exports.postInfo = function(req, res) {
     });
 };
 
-/* GET 'Add Assignment' page */
-module.exports.addPost = function(req, res) {
+/* GET postings by user page */
+module.exports.postingById = function(req, res) {
     res.render('post-create-form', {
         title: 'Add Post',
         pageHeader: {
@@ -77,3 +77,23 @@ module.exports.addPost = function(req, res) {
         }
     });
 };
+
+/* POST comment */
+module.exports.addComment = function(req, res) {
+	res.render('post-create-form', {
+        title: 'Add Post',
+        pageHeader: {
+            title: 'Add Post'
+        }
+    });
+}
+
+/* POST posting */
+module.exports.createPost = function(req, res) {
+	res.render('post-create-form', {
+        title: 'Add Post',
+        pageHeader: {
+            title: 'Add Post'
+        }
+    });	
+}
