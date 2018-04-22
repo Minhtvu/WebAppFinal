@@ -1,3 +1,28 @@
+var request = require('request');
+var apiOptions = {
+   server : "http://localhost:3000"
+};
+if (process.env.NODE_ENV === 'production') {
+   apiOptions.server = "https://glacial-river-41313.herokuapp.com";
+}
+
+//Show error function
+var _showError = function (req, res, status) {
+  var title, content;
+  if (status === 404){
+    title = "404, page not found";
+    content = "Oh dear. Looks like we can't find this page. Sorry.";
+  } else {
+    title = status + ", something's gone wrong";
+    content = "Something, somewhere, has gone just a little bit wrong.";
+  } 
+  res.status(status);
+  res.render('layout', {
+    title : title,
+    content : content
+  });
+};
+
 /* GET 'home' page */
 module.exports.postList = function(req, res) {
     res.render('post-list', {
