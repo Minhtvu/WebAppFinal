@@ -158,22 +158,16 @@ module.exports.createPost = function(req, res) {
 
 /* POST Add Posting */
 module.exports.doCreatepost = function(req, res){
-   var requestOptions, path, courseid, postdata;
-   courseid = req.params.courseid;
-   path = "/api/courses/" + courseid + '/assignments';
+   var requestOptions, path, userid, postdata;
+   userid = req.params.userid;
+   path = "/api/users/" + userid + '/new';
    postdata = {
-      name: req.body.name,
-      points: parseInt(req.body.points, 10),
-      status: req.body.status,
-      due: req.body.due
+      title: req.body.title,
+	  description: req.body.description,
+	  deadline: req.body.deadline,
+	  userOffering: req.body.userOffering
    };
-   if(!postdata.name || !postdata.due || !postdata.points){
-      res.redirect('/course/' + courseid + '/assignments/new?err=req');
-   } else if (postdata.points > 100 || postdata.points < 0){
-      res.redirect('/course/' + courseid + '/assignments/new?err=points')
-   } else if (res.statusCode === 400){
-      res.redirect('/course/' + courseid + 'assignments/new?err=bad');
-   }
+   // Insert authenitication here
    requestOptions = {
      url : apiOptions.server + path,
      method : "POST",
@@ -181,7 +175,7 @@ module.exports.doCreatepost = function(req, res){
    };
    request(requestOptions, function(err, response, body) {
      if (response.statusCode === 201) {
-        res.redirect('/course/' + courseid);
+        res.redirect('/user/' + userid + '/new');
       } else {
         _showError(req, res, response.statusCode);
       } 
