@@ -6,18 +6,10 @@ var ctrlPostings = require('../controllers/postings');
 // Users
 router.get('/users/:userid', ctrlUsers.userById);
 
-
 // Postings
 router.get('/', ctrlPostings.postingList);
-router.get('/:userid/postings/:postingid', ctrlPostings.postingById);
-router.post('/:userid/postings/:postingid', ctrlPostings.addComment);
+router.get('/users/:userid/postings/:postingid', ctrlPostings.postingById);
+router.post('/users/:userid/postings/:postingid', ctrlPostings.addComment);
 router.post('/users/:userid/new', ctrlPostings.createPost);
 
-/*
-router.get('/postings/:courseid/assignments', ctrlAssignments.assignmentsList);
-router.put('/courses/:courseid/assignments/:assignmentid', ctrlAssignments.assignmentsUpdateOne);
-router.delete('/courses/:courseid/assignments/:assignmentid', ctrlAssignments.assignmentsDeleteOne);
-*/
-
-module.exports = router;
-	
+module.exports = router;	

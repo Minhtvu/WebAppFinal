@@ -2,9 +2,11 @@ var express = require('express');
 var router = express.Router();
 var ctrlPostings = require('../controllers/postings');
 
-/* GET postings pages. */
-router.get('/', ctrlPostings.postList);
-router.get('/postings/', ctrlPostings.postInfo);
-router.get('/postings/new', ctrlPostings.addPost);
+// Postings
+router.get('/user/:userid', ctrlPostings.userById);
+router.get('/', ctrlPostings.postingList);
+router.get('/user/:userid/postings/:postingid', ctrlPostings.postingById);
+router.post('/user/:userid/postings/:postingid', ctrlPostings.addComment);
+router.post('/user/:userid/new', ctrlPostings.createPost);
 
-module.exports = router;
+module.exports = router;	
