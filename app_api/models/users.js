@@ -9,7 +9,7 @@ var postingSchema = new mongoose.Schema({
   description: {type: String, required: true},
   deadline: {type: String},
   userOffering: {type: String},
-  comments: [commentSchema]
+  comments: [commentSchema],
 });
 
 var userSchema = new mongoose.Schema({

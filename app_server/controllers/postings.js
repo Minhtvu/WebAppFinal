@@ -96,7 +96,8 @@ module.exports.postingById = function(req, res) {
 	request(requestOptions, function (err, response, body) {
 		if(response.statusCode == 200) {
 			res.render('post-info', {
-				posting: body
+				posting: body,
+                                user: req.params.userid
 			});
 		}
 		else {
