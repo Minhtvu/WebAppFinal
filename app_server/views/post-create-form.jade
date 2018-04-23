@@ -3,28 +3,24 @@ extends layout
 block content
   .row.page-header
     .col-lg-12
-      h1= pageHeader.title
+      h1 Create post
   .row
     .col-xs-12.col-md-6
-      form.form-horizontal(action="/course", method="get", role="form")
+      form.form-horizontal(action="", method="post", role="form")
         .form-group
-          label.col-xs-10.col-sm-2.control-label(for="name") Post Title
+          label.col-xs-10.col-sm-2.control-label(for="title")= field.title
           .col-xs-12.col-sm-10
-            input#name.form-control(name="name")
+            input#name.form-control(name="title")
         .form-group
-          label.col-xs-10.col-sm-2.control-label(for="date") Date
+          label.col-xs-10.col-sm-2.control-label(for="deadline")= field.deadline
           .col-xs-12.col-sm-10
-            input#name.form-control(name="date")
+            input#name.form-control(name="deadline")
         .form-group
-          label.col-xs-10.col-sm-2.control-label(for="status") Status
-          .col-xs-12.col-sm-2
-            select#st.form-control.input-sm(name="status")
-              option Not Started
-              option In Progress
-              option Done
-              option Submitted
+          label.col-xs-10.col-sm-2.control-label(for="userOffering")= field.userOffering
+          .col-xs-12.col-sm-10
+            input#name.form-control(name="userOffering")
         .form-group
-          label.col-sm-2.control-label(for="description") Description
+          label.col-sm-2.control-label(for="description")= field.description
           .col-sm-10
             textarea#description.form-control(name="description", rows="5")
         button.btn.btn-default.pull-right Add Post
