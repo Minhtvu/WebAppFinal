@@ -113,7 +113,7 @@ module.exports.addComment = function(req, res) {
 	postingid = req.params.postingid;
 	path = '/api/users/' + userid + '/postings/' + postingid;
 	postdata = {
-		username: req.body.username,
+		username: "Testing",
 		comment: req.body.comment
 	};
 	// Insert validation here if necessary
@@ -153,7 +153,7 @@ var renderPostingForm = function (req, res) {
 
 /* GET Add Posting */
 module.exports.createPost = function(req, res) {
-	renderPostingForm(req, res);	
+    renderPostingForm(req, res);	
 }
 
 /* POST Add Posting */
@@ -162,11 +162,12 @@ module.exports.doCreatepost = function(req, res){
    userid = req.params.userid;
    path = "/api/users/" + userid + '/new';
    postdata = {
-      title: req.body.title,
+          title: req.body.title,
 	  description: req.body.description,
 	  deadline: req.body.deadline,
 	  userOffering: req.body.userOffering
    };
+   console.log(postdata);
    // Insert authenitication here
    requestOptions = {
      url : apiOptions.server + path,
@@ -175,7 +176,7 @@ module.exports.doCreatepost = function(req, res){
    };
    request(requestOptions, function(err, response, body) {
      if (response.statusCode === 201) {
-        res.redirect('/user/' + userid + '/new');
+        res.redirect('/user/' + userid);
       } else {
         _showError(req, res, response.statusCode);
       } 
