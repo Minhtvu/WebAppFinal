@@ -1,6 +1,9 @@
 db.users.save({
-	"username" : "Minh",
+	"username" : "minh",
 	"password" : "123456",
+        "name": "Minh Vu",
+        "email": "minhtvu@mymail.mines.edu",
+        "phone": "7202445873",
 	"postings" : [
 		{
 			"title" : "Web designing",
@@ -42,4 +45,3 @@ db.users.save({
 		}
 	]
 })
-

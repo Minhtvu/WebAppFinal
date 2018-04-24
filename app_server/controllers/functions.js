@@ -23,7 +23,8 @@ module.exports.localReg = function(username, password) {
           var hash = bcrypt.hashSync(password, 8);
           var user = {
             "username": username,
-            "password": hash
+            "password": hash,
+            "postings": [],
           }
 
           console.log("CREATING USER:", username);
@@ -47,7 +48,7 @@ module.exports.localReg = function(username, password) {
 module.exports.localAuth = function(username, password) {
   var deferred = Q.defer();
 
-  MongoClient = connect(mongodbUrl, function(err, db) {
+  MongoClient.connect(mongodbUrl, function(err, db) {
     var collection = db.collection('users');
 
     collection.findOne({'username' : username}).then(function(result) {
