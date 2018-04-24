@@ -7,7 +7,7 @@ var express = require('express'),
     funct = require('../controllers/functions.js');
     ctrlPostings = require('../controllers/postings');
 
-var app = express();
+//var router = express();
 var router = express.Router();
 //===============PASSPORT=================
 
@@ -80,20 +80,20 @@ function ensureAuthenticated(req, res, next) {
 
 // Configure Express
 var logger = require('morgan');
-app.use(logger());
+router.use(logger());
 var cookieParser = require('cookie-parser');
-app.use(cookieParser(config.cookieSecret))
+router.use(cookieParser(config.cookieSecret))
 var bodyParser = require('body-parser');
-app.use(bodyParser());
+router.use(bodyParser());
 var methodOverride = require('method-override');
-app.use(methodOverride());
+router.use(methodOverride());
 var session = require('express-session');
-app.use(session({secret:'secretKey'}));
-app.use(passport.initialize());
-app.use(passport.session());
+router.use(session({secret:'secretKey'}));
+router.use(passport.initialize());
+router.use(passport.session());
 
 // Session-persisted message middleware
-app.use(function(req, res, next){
+router.use(function(req, res, next){
   var err = req.session.error,
       msg = req.session.notice,
       success = req.session.success;
@@ -112,8 +112,8 @@ app.use(function(req, res, next){
 var hbs = exphbs.create({
     defaultLayout: 'main',
 });
-app.engine('handlebars', hbs.engine);
-app.set('view engine', 'handlebars');
+// router.engine('handlebars', hbs.engine);
+// router.set('view engine', 'handlebars');
 
 
 //===============ROUTES=================
