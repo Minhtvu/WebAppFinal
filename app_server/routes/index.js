@@ -56,6 +56,7 @@ app.use(passport.session());
        if (user) {
          console.log("REGISTERED: " + user.username);
          req.session.success = 'You are successfully registered and logged in ' + user.username;
+         res.redirect("/");
          done(null, user);
        }
        if (!user) {
