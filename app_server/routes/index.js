@@ -75,17 +75,17 @@ app.use(passport.session());
    res.render('signin');
  });
 
- router.post('/local-reg', passport.authenticate('local-signup', {
-   successRedirect: '/',
-   failureRedirect: '/signin'
-   })
- );
+ router.post('/local-reg', passport.authenticate('local-signup'),
+   function(req, res) {
+     res.redirect('/');
+ });
 
- router.post('/login', passport.authenticate('local-signin', {
-   successRedirect: '/',
-   failureRedirect: '/signin'
-   })
- );
+
+ router.post('/login', passport.authenticate('local-signin'),
+   function(req, res) {
+     res.redirect('/');
+  });
+
 
  router.get('/logout', function(req, res) {
    var name = req.user.username;
