@@ -23,6 +23,10 @@ var _showError = function (req, res, status) {
   });
 };
 
+module.exports.about = function(req, res) {
+	res.render('about');
+};
+
 /* GET user page */
 module.exports.userById = function(req, res) {
     var requestOptions, path;

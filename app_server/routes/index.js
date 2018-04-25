@@ -149,6 +149,7 @@ router.get('/logout', function(req, res){
 // Postings
 router.get('/user/:userid', ctrlPostings.userById);
 router.get('/', ctrlPostings.postingList);
+router.get('/about', ctrlPostings.about);
 router.get('/user/:userid/postings/:postingid', ctrlPostings.postingById);
 router.post('/user/:userid/postings/:postingid', ctrlPostings.addComment);
 router.post('/user/:userid/new', ctrlPostings.doCreatepost);

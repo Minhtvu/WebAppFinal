@@ -4,20 +4,15 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css')
   body
-   .navbar.navbar-default.navbar-fixed-top
+   .navbar.navbar-default.navbar-fixed-top.bg-primary
       .container
         .navbar-header
-          a.navbar-brand(href='/') Home
-          a.navbar-brand(href='/') User
-          a.navbar-brand(href='/postings/') Post Detail
-          a.navbar-brand(href='/postings/new') New Post
-          button.navbar-toggle(type='button', data-toggle='collapse', data-target='#navbar-main')
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-
+          a.navbar-brand.text-white(href='/') Home
+          a.navbar-brand.text-white(href='/') User
+          a.navbar-brand.text-white(href='/signin') Sign In
+          a.navbar-brand.text-white(href='/about') About
     .container
       block content
 
@@ -26,5 +21,6 @@ html
           .col-xs-12
             small Clifford Boyce, Gustavo Bejarano, Corbin Baker, Minh Vu - 2017
 
-    script(src='/javascripts/jquery-1.11.1.min.js')
-    script(src='/bootstrap/js/bootstrap.min.js')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js')
