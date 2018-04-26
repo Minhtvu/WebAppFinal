@@ -7,29 +7,14 @@ block content
     .col-xs-12.col-md-9
       .row
         .col-xs-12.col-sm-6
-          p= posting.title
-          .panel.panel-primary
-            .panel-heading
-              h2.panel-title Date Posted
-            .panel-body
-                p= posting.deadline
-
-          .panel.panel-primary
-            .panel-heading
-              h2.panel-title User
-            .panel-body
-                a(href="/user/" + user) Click to go to user page
-
-        .col-xs-12
-          .panel.panel-primary.review-panel
-            .panel-heading
-              a.btn.btn-default.pull-right(href="/postings/") Add Comment
-              h2.panel-title Comments
-            .panel-body.review-container
-              each comment in posting.comments
-                .row
-                  .review
-                    .well.well-sm.review-header
-                      span.reviewAuthor #{comment.name}
-                      span.reviewDate.pull-right #{comment.date}
-                    
+          p Description: #{posting.description}
+          p Deadline: #{posting.deadline}
+          p Offering: #{posting.userOffering} 
+          h2.panel-title Comments
+          .card.card-primary
+          each comment in posting.comments
+            .card.card-header.bg-primary
+              h5 Username: #{comment.username}
+            .card.card-body
+              p Comment: #{comment.comment}
+          a.btn.btn-default.pull-right(href="/user/") Add Comment

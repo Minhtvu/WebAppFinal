@@ -1,19 +1,23 @@
 extends layout
 
 block content
-  .jumbotron
-    h1 Sign in
-    p We're using passport.js to demonstrate user authentication. Please sign-in with your Local, Twitter, Google, or Facebook account to view your profile.
-    form.collapse#local-sign-in(action="/login", method="post")
-      label Username:
-        input(type="text", name="username")
-      label Password:
-        input(type="password", name="password")
-      input.btn.btn-primary.btn-sm(type="submit", value="Log In")
-
-    form.collapse#local-reg(action="/local-reg", method="post")
-      label New Username:
-        input(type="text", name="username")
-      label New Password:
-        input(type="password", name="password")
-      input.btn.btn-primary.btn-sm(type="submit", value="Register")
+    h1 Sign In/Register
+    form#local-sign-in(action="/login", method="post")
+      .form-group
+        label Username:&nbsp;&nbsp;
+          input(type="text", name="username")
+      .form-group
+        label Password:&nbsp;&nbsp;
+          input(type="password", name="password")
+      .form-group
+        input.btn.btn-primary.btn-sm(type="submit", value="Log In")
+    p </br>
+    form#local-reg(action="/local-reg", method="post")
+      .form-group
+        label New Username:&nbsp;&nbsp;
+          input(type="text", name="username")
+      .form-group
+        label New Password:&nbsp;&nbsp;
+          input(type="password", name="password")
+      .form-group
+        input.btn.btn-primary.btn-sm(type="submit", value="Register")
