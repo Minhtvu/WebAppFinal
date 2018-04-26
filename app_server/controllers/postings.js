@@ -48,6 +48,28 @@ module.exports.userById = function(req, res) {
 	});
 };
 
+/* GET account page */
+module.exports.myAccount = function(req, res) {
+    var requestOptions, path;
+	path = '/api/users/' + req.user._id;
+	requestOptions = {
+		url : apiOptions.server + path,
+		method : "GET",
+		json : {}
+	};
+	request(requestOptions, function (err, response, body) {
+		if(response.statusCode == 200) {
+			res.render('my-info', {
+				user: body
+			});
+		}
+		else {
+			_showError(req, res, reponse.statusCode);
+		}
+	});
+};
+
+
 var renderHomepage = function(req, res, responseBody){
    var message;
    if (!(responseBody instanceof Array)) {
