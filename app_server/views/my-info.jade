@@ -22,5 +22,7 @@ block content
                     a(href="/user/" + user._id + "/postings/" + posting._id) Need: #{posting.title}
                   h5
                     p. Offering: #{posting.userOffering}  
-                  
+                    .col-xs-12.list-group-item
+                      a(href="/user/" + user._id + "/postings/" + posting._id)= posting.description
+                      a.btn.btn-info.float-right(href="/user/" + user._id + "/postings/" + posting._id + "/delete") Delete               
   a(href="/user/" + user._id + "/new") Add new post

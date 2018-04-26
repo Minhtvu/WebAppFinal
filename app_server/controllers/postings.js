@@ -53,6 +53,7 @@ module.exports.userById = function(req, res) {
 
 /* GET account page */
 module.exports.myAccount = function(req, res) {
+    console.log("Minh");
     if (!req.user)
     {
        res.redirect('/signin');
@@ -220,3 +221,23 @@ module.exports.doCreatepost = function(req, res){
       }
    });
 };
+
+module.exports.deletePost = function(req, res) {
+   console.log
+   var requestOptions, path, userid, postingid;
+   userid = req.params.userid;
+   postingid = req.params.postingid;
+   path = "/api/users/" + userid + "/postings/" + postingid;
+   requestOptions = {
+      url : apiOptions.server + path,
+      method: "DELETE",
+      json: {}
+   };
+   request(
+      requestOptions,
+      function(err, response, body) {
+         res.redirect('/myaccount');
+      }
+   );
+};
+   
