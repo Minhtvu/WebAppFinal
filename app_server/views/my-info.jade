@@ -18,7 +18,9 @@ block content
             .panel-body.review-container
               each posting in user.postings
                 .col-xs-12.list-group-item                         
-                  h3                                              
-                    a(href="/user/" + user._id + "/postings/" + posting._id)= posting._id
-                    
+                  h3
+                    a(href="/user/" + user._id + "/postings/" + posting._id) Need: #{posting.title}
+                  h5
+                    p. Offering: #{posting.userOffering}  
+                  
   a(href="/user/" + user._id + "/new") Add new post

@@ -143,12 +143,15 @@ module.exports.postingById = function(req, res) {
 
 /* POST comment */
 module.exports.addComment = function(req, res) {
+        if (!req.user){
+           res.redirect('/signin');
+        }
 	var requestOptions, path, userid, postingid, postdata;
 	userid = req.params.userid;
 	postingid = req.params.postingid;
 	path = '/api/users/' + userid + '/postings/' + postingid;
 	postdata = {
-		username: "Testing",
+		username: req.user.username,
 		comment: req.body.comment
 	};
 	// Insert validation here if necessary
@@ -211,7 +214,7 @@ module.exports.doCreatepost = function(req, res){
    };
    request(requestOptions, function(err, response, body) {
      if (response.statusCode === 201) {
-        res.redirect('/user/' + userid);
+        res.redirect('/myaccount');
       } else {
         _showError(req, res, response.statusCode);
       }

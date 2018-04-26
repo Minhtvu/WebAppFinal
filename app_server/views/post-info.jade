@@ -21,4 +21,13 @@ block content
               h5 Username: #{comment.username}
             .card.card-body
               p Comment: #{comment.comment}
-          a.btn.btn-default.pull-right(href="/user/") Add Comment
+   .row
+    .col-xs-12.col-md-6
+      form.form-horizontal(action="", method="post", role="form")
+        .form-group
+          label.col-sm-2.control-label(for="comment") Comment:
+          .col-sm-10
+            textarea#description.form-control(name="comment", rows="5")
+        button.btn.btn-default.pull-right Add Comment
+    .col-xs-12.col-md-4
+          
