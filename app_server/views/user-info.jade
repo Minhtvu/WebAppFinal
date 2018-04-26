@@ -3,6 +3,10 @@ extends layout
 block content
   .row.page-header: .col-lg-12
       h1= user.username
+      if account
+          h4.ml-auto= account.username
+        else
+          h4.ml-auto Not logged in
   .row
     .col-xs-12.col-md-9
       .row

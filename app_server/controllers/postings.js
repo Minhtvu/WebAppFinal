@@ -41,7 +41,8 @@ module.exports.userById = function(req, res) {
 	request(requestOptions, function (err, response, body) {
 		if(response.statusCode == 200) {
 			res.render('user-info', {
-				user: body
+				user: body,
+                                account: req.user
 			});
 		}
 		else {
@@ -51,8 +52,11 @@ module.exports.userById = function(req, res) {
 };
 
 /* GET account page */
-module.exports.myAccount = function(req, res, next) {
-    funct.ensureAuthenticated(req, res, next);
+module.exports.myAccount = function(req, res) {
+    if (!req.user)
+    {
+       res.redirect('/signin');
+    }
     var requestOptions, path;
 	path = '/api/users/' + req.user._id;
 	requestOptions = {
@@ -93,7 +97,8 @@ var renderHomepage = function(req, res, responseBody){
       info: 'Mines Bartering system allows students to trade services and items.'
     },
     users: responseBody,
-    message: message
+    message: message,
+    account: req.user
   });
 };
 
@@ -126,7 +131,8 @@ module.exports.postingById = function(req, res) {
 		if(response.statusCode == 200) {
 			res.render('post-info', {
 				posting: body,
-                                user: req.params.userid
+                                user: req.params.userid,
+                                account: req.user
 			});
 		}
 		else {
@@ -164,7 +170,7 @@ var renderPostingForm = function (req, res) {
    res.render('post-create-form', {
     title: 'Add posting',
     pageHeader: {
-      title: 'Add posting for '
+      title: 'Add posting for ' + req.user
     },
     field: {
       title: 'Title',
