@@ -9,7 +9,8 @@ router.get('/users/:userid', ctrlUsers.userById);
 // Postings
 router.get('/', ctrlPostings.postingList);
 router.get('/users/:userid/postings/:postingid', ctrlPostings.postingById);
+router.delete('/users/:userid/postings/:postingid', ctrlPostings.deletePost);
 router.post('/users/:userid/postings/:postingid', ctrlPostings.addComment);
 router.post('/users/:userid/new', ctrlPostings.createPost);
 
-module.exports = router;	
+module.exports = router;

@@ -177,3 +177,48 @@ module.exports.createPost = function (req, res) {
     });
   }
 };
+
+module.exports.deletePost = function(req, res, next) {
+  if (!req.params.userid || !req.params.postingid) {
+    sendJsonResponse(res, 404, {
+      "message": "Not found, userid and postingid are both required"
+    });
+    return;
+  }
+  User
+    .findById(req.params.userid)
+    .select('postings')
+    .exec(
+      function(err, user) {
+        if (!user) {
+          sendJsonResponse(res, 404, {
+            "message": "userid not found"
+          });
+          return;
+        } else if (err) {
+          sendJsonResponse(res, 400, err);
+          return;
+        }
+        if (user.postings && user.postings.length > 0) {
+          if (!user.postings.id(req.params.postingid)) {
+            sendJsonResponse(res, 404, {
+              "message": "postingid not found"
+            });
+          } else {
+            user.postings.id(req.params.postingid).remove();
+            user.save(function(err) {
+              if (err) {
+                sendJsonResponse(res, 404, err);
+              } else {
+                sendJsonResponse(res, 204, null);
+              }
+            });
+          }
+        } else {
+          sendJsonResponse(res, 404, {
+            "message": "No post to delete"
+          });
+        }
+      }
+    );
+};

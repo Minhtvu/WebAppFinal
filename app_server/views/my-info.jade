@@ -17,8 +17,9 @@ block content
               h2.panel-title Postings
             .panel-body.review-container
               each posting in user.postings
-                .col-xs-12.list-group-item                         
-                  h3                                              
+                .col-xs-12.list-group-item
+                  h3
                     a(href="/user/" + user._id + "/postings/" + posting._id)= posting._id
-                    
+                  a.btn.btn-info.float-right(href="/users/" + user._id + "/postings/" + posting._id + "/delete") Delete
+
   a(href="/user/" + user._id + "/new") Add new post

@@ -119,10 +119,6 @@ var hbs = exphbs.create({
 //===============ROUTES=================
 //displays our signup page
 router.get('/signin', function(req, res){
-  if (req.user)
-  {
-     res.redirect('/myaccount');
-  }
   res.render('signin');
 });
 
@@ -142,10 +138,6 @@ router.post('/login', passport.authenticate('local-signin', {
 
 //logs user out of site, deleting them from the session, and returns to homepage
 router.get('/logout', function(req, res){
-  if(!req.user)
-  {
-     res.redirect('/');
-  }
   var name = req.user.username;
   console.log("LOGGIN OUT " + req.user.username)
   req.logout();
@@ -156,7 +148,6 @@ router.get('/logout', function(req, res){
 
 // Postings
 router.get('/user/:userid', ctrlPostings.userById);
-router.get('/myaccount', ctrlPostings.myAccount);
 router.get('/', ctrlPostings.postingList);
 router.get('/about', ctrlPostings.about);
 router.get('/user/:userid/postings/:postingid', ctrlPostings.postingById);
