@@ -31,8 +31,7 @@ module.exports.about = function(req, res, next) {
 
 /* GET user page */
 module.exports.userById = function(req, res) {
-  //funct.ensureAuthenticated(req, res, next);
-    var requestOptions, path;
+      var requestOptions, path;
 	path = '/api/users/' + req.params.userid;
 	requestOptions = {
 		url : apiOptions.server + path,
@@ -52,7 +51,8 @@ module.exports.userById = function(req, res) {
 };
 
 /* GET account page */
-module.exports.myAccount = function(req, res) {
+module.exports.myAccount = function(req, res, next) {
+    funct.ensureAuthenticated(req, res, next);
     var requestOptions, path;
 	path = '/api/users/' + req.user._id;
 	requestOptions = {
