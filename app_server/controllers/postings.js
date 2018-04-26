@@ -3,7 +3,7 @@ var apiOptions = {
    server : "http://localhost:3000"
 };
 if (process.env.NODE_ENV === 'production') {
-   apiOptions.server = "https://glacial-river-41313.herokuapp.com";
+   apiOptions.server = "https://secret-falls-51461.herokuapp.com;
 }
 
 funct = require('../controllers/functions.js');
