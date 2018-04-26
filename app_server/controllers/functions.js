@@ -75,3 +75,10 @@ module.exports.localAuth = function(username, password) {
 
   return deferred.promise;
 };
+
+// Simple route middleware to ensure user is authenticated.
+module.exports.ensureAuthenticated = function(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  req.session.error = 'Please sign in!';
+  res.redirect('/signin');
+}

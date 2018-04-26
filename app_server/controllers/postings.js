@@ -6,6 +6,8 @@ if (process.env.NODE_ENV === 'production') {
    apiOptions.server = "https://glacial-river-41313.herokuapp.com";
 }
 
+funct = require('../controllers/functions.js');
+
 //Show error function
 var _showError = function (req, res, status) {
   var title, content;
@@ -15,7 +17,7 @@ var _showError = function (req, res, status) {
   } else {
     title = status + ", something's gone wrong";
     content = "Something, somewhere, has gone just a little bit wrong.";
-  } 
+  }
   res.status(status);
   res.render('layout', {
     title : title,
@@ -23,12 +25,13 @@ var _showError = function (req, res, status) {
   });
 };
 
-module.exports.about = function(req, res) {
+module.exports.about = function(req, res, next) {
 	res.render('about');
 };
 
 /* GET user page */
 module.exports.userById = function(req, res) {
+  //funct.ensureAuthenticated(req, res, next);
     var requestOptions, path;
 	path = '/api/users/' + req.params.userid;
 	requestOptions = {
@@ -58,7 +61,7 @@ var renderHomepage = function(req, res, responseBody){
          message = "No users found";
       }
    }
-   res.render('post-list', { 
+   res.render('post-list', {
     title: 'All the postings',
     pageHeader: {
       title: 'Mines Bartering',
@@ -68,7 +71,7 @@ var renderHomepage = function(req, res, responseBody){
       info: 'Mines Bartering system allows students to trade services and items.'
     },
     users: responseBody,
-    message:message
+    message: message
   });
 };
 
@@ -129,7 +132,7 @@ module.exports.addComment = function(req, res) {
 	request(requestOptions, function(err, response, body) {
 		if (response.statusCode === 201) {
 			res.redirect('/user/' + userid + '/postings/' + postingid);
-		} 
+		}
 		else {
 			_showError(req, res, response.statusCode);
 		}
@@ -157,7 +160,7 @@ var renderPostingForm = function (req, res) {
 
 /* GET Add Posting */
 module.exports.createPost = function(req, res) {
-    renderPostingForm(req, res);	
+    renderPostingForm(req, res);
 }
 
 /* POST Add Posting */
@@ -183,6 +186,6 @@ module.exports.doCreatepost = function(req, res){
         res.redirect('/user/' + userid);
       } else {
         _showError(req, res, response.statusCode);
-      } 
+      }
    });
 };

@@ -1,23 +1,23 @@
 extends layout
 
 block content
-  #banner.page-header                                          
-    .row                                                       
-      .col-lg-20                                             
-        h1= pageHeader.title                                              
+  #banner.page-header
+    .row
+      .col-lg-20
+        h1= pageHeader.title
           small &nbsp;#{pageHeader.strapline}
   h3 Postings:
   .row.mt-4
-    .col-xs-12.col-sm-8   
-      .error= message                
+    .col-xs-12.col-sm-8
+      .error= message
       .row.list-group
         each user in users
           each posting in user.postings
-            .col-xs-12.list-group-item                         
-              h3                                              
+            .col-xs-12.list-group-item
+              h3
                 a(href="/user/" + user._id + "/postings/" + posting._id) Need: #{posting.title}
-              h5 
-                p User: #{user.name}                                                                                                                                   
+              h5
+                p User: #{user.name}
                 p Offering: #{posting.userOffering}                                                                  
-    .col-xs-12.col-sm-4                       
+    .col-xs-12.col-sm-4
       p.lead= description.info
