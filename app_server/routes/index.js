@@ -56,7 +56,6 @@ app.use(passport.session());
        if (user) {
          console.log("REGISTERED: " + user.username);
          req.session.success = 'You are successfully registered and logged in ' + user.username;
-         res.redirect("/");
          done(null, user);
        }
        if (!user) {
@@ -76,17 +75,17 @@ app.use(passport.session());
    res.render('signin');
  });
 
- router.post('/local-reg', passport.authenticate('local-signup'),
-   function(req, res) {
-     res.redirect('/');
- });
+ router.post('/local-reg', passport.authenticate('local-signup', {
+   successRedirect: '/',
+   failureRedirect: '/signin'
+   })
+ );
 
-
- router.post('/login', passport.authenticate('local-signin'),
-   function(req, res) {
-     res.redirect('/');
-  });
-
+ router.post('/login', passport.authenticate('local-signin', {
+   successRedirect: '/',
+   failureRedirect: '/signin'
+   })
+ );
 
  router.get('/logout', function(req, res) {
    var name = req.user.username;
