@@ -147,6 +147,7 @@ var doCreatePost = function(req, res, user) {
     user.save(function(err, user) {
       var thisPosting;
       if (err) {
+        console.log(err);
         sendJsonResponse(res, 400, err);
       } else {
         thisPosting = user.postings[user.postings.length - 1];

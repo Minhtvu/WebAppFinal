@@ -2,6 +2,8 @@ extends layout
 
 block content
     h1 Sign In/Register
+    - if (error)
+      .alert.alert-danger(role="alert")=error
     form#local-sign-in(action="/login", method="post")
       .form-group
         label Username:&nbsp;&nbsp;
@@ -15,9 +17,9 @@ block content
     form#local-reg(action="/local-reg", method="post")
       .form-group
         label New Username:&nbsp;&nbsp;
-          input(type="text", name="username")
+          input#username(type="text", name="username")
       .form-group
         label New Password:&nbsp;&nbsp;
-          input(type="password", name="password")
+          input#password(type="password", name="password")
       .form-group
         input.btn.btn-primary.btn-sm(type="submit", value="Register")

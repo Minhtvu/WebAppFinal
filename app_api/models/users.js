@@ -13,13 +13,10 @@ var postingSchema = new mongoose.Schema({
 });
 
 var userSchema = new mongoose.Schema({
-  name: {type: String, required: true},
-  email: {type: String, required: true},
-  phone: {type: String, required: true},
   username: {type: String, required: true},
   password: {type: String, required: true},
   postings: [postingSchema]
-});  
-mongoose.model('User', userSchema, 'users'); 
+});
+mongoose.model('User', userSchema, 'users');
 mongoose.model('Posting', postingSchema, 'postings');
 mongoose.model('Comment', commentSchema, 'comments');

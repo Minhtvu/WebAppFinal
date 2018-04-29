@@ -170,6 +170,7 @@ module.exports.addComment = function(req, res) {
 		}
 	});
 }
+
 var renderPostingForm = function (req, res) {
    res.render('post-create-form', {
     title: 'Add posting',
@@ -213,13 +214,21 @@ module.exports.doCreatepost = function(req, res){
      method : "POST",
      json : postdata
    };
-   request(requestOptions, function(err, response, body) {
-     if (response.statusCode === 201) {
-        res.redirect('/myaccount');
-      } else {
-        _showError(req, res, response.statusCode);
-      }
-   });
+   if (!postData.title) {
+     res.redirect('/user/' + userid + '/new?err=noTitle')
+   } else if (!postData.description) {
+     res.redirect('/user/' + userid + '/new?err=noDescr')
+   } else {
+     request(requestOptions, function(err, response, body) {
+       if (response.statusCode === 201) {
+          res.redirect('/myaccount');
+        } else if (response.statusCode === 400 && body.name && body.name === "ValidationError") {
+          res.redirect('/user/' + userid + '/new?err=val');
+        } else {
+          _showError(req, res, response.statusCode);
+        }
+     });
+   }
 };
 
 module.exports.deletePost = function(req, res) {
@@ -240,4 +249,3 @@ module.exports.deletePost = function(req, res) {
       }
    );
 };
-   

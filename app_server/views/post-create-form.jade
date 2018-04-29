@@ -10,11 +10,17 @@ block content
           h4.ml-auto Not logged in
   .row
     .col-xs-12.col-md-6
-      form.form-horizontal(action="", method="post", role="form")
+      form.form-horizontal#createPost(action="", method="post", role="form")
+        - if (error == "val")
+          .alert.alert-danger(role="alert") All fields required, please try again
+        - if (error == "noTitle")
+          .alert.alert-danger(role="alert") Title required, please try again
+        - if (error == "noDescr")
+          .alert.alert-danger(role="alert") Description requred, please try again
         .form-group
           label.col-xs-10.col-sm-2.control-label(for="title")= field.title
           .col-xs-12.col-sm-10
-            input#name.form-control(name="title")
+            input#title.form-control(name="title")
         .form-group
           label.col-xs-10.col-sm-2.control-label(for="deadline")= field.deadline
           .col-xs-12.col-sm-10

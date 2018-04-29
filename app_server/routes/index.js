@@ -35,7 +35,7 @@ passport.use('local-signin', new LocalStrategy(
       }
       if (!user) {
         console.log("COULD NOT LOG IN");
-        req.session.error = 'Could not log user in. Please try again.'; //inform user could not log them in
+        req.session.error = 'Username or password incorrect. Please try again.'; //inform user could not log them in
         done(null, user);
       }
     })
